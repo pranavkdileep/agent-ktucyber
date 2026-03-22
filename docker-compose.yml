@@ -1,0 +1,14 @@
+services:
+  chat-api:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      PORT: "8000"
+      NVIDIA_BASE_URL: ${NVIDIA_BASE_URL:-https://integrate.api.nvidia.com/v1}
+      NVIDIA_API_KEY: ${NVIDIA_API_KEY:-}
+    volumes:
+      - .:/app
+    command: ["python", "-m", "uvicorn", "chat_api:app", "--host", "0.0.0.0", "--port", "8000"]

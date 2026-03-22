@@ -1,0 +1,3 @@
+python extract_figures.py textbook.pdf ocr_figures.json extracted_figures --dpi 100 --image-format png
+
+python make_ocr_data.py textbook.pdf 23 23 --output sample_ocr_figures.json --dpi 100
