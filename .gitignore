@@ -40,6 +40,7 @@ imagedata
 structures
 
 PageIndex
+pageindex-minmax
 
 # Docker
 *.log
