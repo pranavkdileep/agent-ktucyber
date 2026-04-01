@@ -152,7 +152,7 @@ async def call_nvidia_vlm_once(
 async def stream_nvidia_vlm(
     prompt: str,
     image_paths: list[str] | None = None,
-    model: str = "qwen/qwen3.5-397b-a17b",
+    model: str = "openai/gpt-oss-120b",
     api_key: str = NVIDIA_API_KEY,
     base_url: str = NVIDIA_BASE_URL,
 ) -> AsyncIterator[str]:
