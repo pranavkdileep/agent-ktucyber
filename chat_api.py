@@ -305,26 +305,74 @@ def build_answer_prompt(query: str, bookid: str, markdown_content: str, imageobj
     ]
 
     return f"""
-        You are an expert educator. Generate a well-structured, study notebook for the following query: "{query}".
+        You are an expert academic tutor and technical content formatter.
 
-        Use the provided textbook content (in markdown) as the primary source of information.
+        Your task is to answer the query using the reference content and generate a well-structured study note.
 
-        Textbook Content:
-        {markdown_content}
+        ----------------------
+        INPUTS:
+        - Query: {query}
+        - Reference Content: {markdown_content}
+        - Available Images: {image_list}
+        ----------------------
 
-        Available Images:
-        {image_list}
+        OUTPUT FORMAT (STRICT):
 
-        Instructions:
-        1. Organize the note with clear headings, subheadings, bullet points, and tables where appropriate.
-        2. Explain complex clearly and concisely, using examples if necessary.
-        3. Include relevant images from the "Available Images" list by inserting the tag <image id="ImageID"> at the most appropriate place in the text.
-        4. Do NOT make up image IDs. Only use IDs from the provided list.
-        5. If an image is relevant, place it near the text that explains it.
-        6. Use markdown
-        7. The output should be pure markdown (except for the <image> tags).
-        8. The output should like a actual study note not like ai generated answer, it should be concise and to the point, avoid unnecessary explanations or verbose language.
-        """
+        1. Title (H1)
+        2. Introduction (1–2 paragraphs)
+        3. Main Sections (H2 for each concept)
+        For each section:
+        - Short paragraph explanation
+        - Bullet points (key facts / features)
+        - Table (if applicable)
+        - Image placement (if relevant using <image> tag)
+        4. Summary / TL;DR
+
+        ----------------------
+
+        INSTRUCTIONS:
+
+        - The output must be **pure Markdown** (except for <image> tags).
+        - Use:
+        - # for title
+        - ## for sections
+        - Bullet points where useful
+        - Tables for structured comparisons
+
+        CONTENT RULES:
+        - Do NOT copy the reference content verbatim.
+        - Convert structured notes into clear explanations.
+        - Maintain a balance between explanation and structured data.
+        - Keep explanations student-friendly and logically flowing.
+
+        ----------------------
+
+        IMAGE HANDLING RULES (STRICT):
+
+        1. Use images only from the provided "Available Images" list.
+        2. Insert images using this exact format:
+        <image id="ImageID">
+        3. Do NOT make up image IDs.
+        4. If an image is relevant, place it near the text it explains.
+        5. Do NOT list all images—only include contextually relevant ones.
+
+        ----------------------
+
+        CONSTRAINT:
+
+        The output MUST include:
+        ✔ Headings  
+        ✔ Paragraph explanations  
+        ✔ Bullet points  
+        ✔ At least one table (if applicable)  
+        ✔ Properly placed <image> tags (if relevant images exist)
+
+        If any requirement is missing, regenerate the response.
+
+        ----------------------
+
+        Now generate the answer.
+    """
 
 
 async def health(_: Request) -> Response:
